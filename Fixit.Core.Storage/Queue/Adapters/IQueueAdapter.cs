@@ -1,0 +1,112 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
+using Azure.Storage.Queues.Models;
+
+namespace Fixit.Core.Storage.Queue.Adapters
+{
+  public interface IQueueAdapter
+  {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <param name="metadata"></param>
+    /// <returns></returns>
+    Task<HttpStatusCode> CreateIfNotExistsAsync(CancellationToken cancellationToken, IDictionary<string, string> metadata = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<bool> DeleteIfExistsAsync(CancellationToken cancellationToken);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="messageId"></param>
+    /// <param name="popReceipt"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<HttpStatusCode> DeleteMessageAsync(string messageId, string popReceipt, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<PeekedMessage> PeekMessageAsync(CancellationToken cancellationToken);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="maxMessages"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<PeekedMessage[]> PeekMessagesAsync(int? maxMessages, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="visibilityTimeout"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<QueueMessage> ReceiveMessageAsync(TimeSpan? visibilityTimeout, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="maxMessages"></param>
+    /// <param name="visibilityTimeout"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<QueueMessage[]> ReceiveMessagesAsync(int? maxMessages, TimeSpan? visibilityTimeout, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="messageText"></param>
+    /// <param name="visibilityTimeout"></param>
+    /// <param name="timeToLive"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<SendReceipt> SendMessageAsync(string messageText, TimeSpan? visibilityTimeout, TimeSpan? timeToLive, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="visibilityTimeout"></param>
+    /// <param name="timeToLive"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<SendReceipt> SendMessageAsync(BinaryData message, TimeSpan? visibilityTimeout, TimeSpan? timeToLive, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="messageId"></param>
+    /// <param name="popReceipt"></param>
+    /// <param name="messageText"></param>
+    /// <param name="visibilityTimeout"></param>
+    /// <param name="timeToLive"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<UpdateReceipt> UpdateMessageAsync(string messageId, string popReceipt, string messageText, TimeSpan? visibilityTimeout, TimeSpan? timeToLive, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="messageId"></param>
+    /// <param name="popReceipt"></param>
+    /// <param name="message"></param>
+    /// <param name="visibilityTimeout"></param>
+    /// <param name="timeToLive"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<UpdateReceipt> UpdateMessageAsync(string messageId, string popReceipt, BinaryData message, TimeSpan? visibilityTimeout, TimeSpan? timeToLive, CancellationToken cancellationToken);
+  }
+}
