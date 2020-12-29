@@ -8,4 +8,8 @@
     <PackageReference Include="Fixit.Core.DataContracts" Version="1.0.30-beta" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Queues\" />
+  </ItemGroup>
+
 </Project>
