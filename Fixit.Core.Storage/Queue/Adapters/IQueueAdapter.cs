@@ -1,29 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Storage.Queues.Models;
 
 namespace Fixit.Core.Storage.Queue.Adapters
 {
   public interface IQueueAdapter
   {
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="cancellationToken"></param>
-    /// <param name="metadata"></param>
-    /// <returns></returns>
-    Task<HttpStatusCode> CreateIfNotExistsAsync(CancellationToken cancellationToken, IDictionary<string, string> metadata = default);
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    Task<bool> DeleteIfExistsAsync(CancellationToken cancellationToken);
-
     /// <summary>
     /// 
     /// </summary>
@@ -73,7 +58,7 @@ namespace Fixit.Core.Storage.Queue.Adapters
     /// <param name="timeToLive"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<SendReceipt> SendMessageAsync(string messageText, TimeSpan? visibilityTimeout, TimeSpan? timeToLive, CancellationToken cancellationToken);
+    Task<Response<SendReceipt>> SendMessageAsync(string messageText, TimeSpan? visibilityTimeout, TimeSpan? timeToLive, CancellationToken cancellationToken);
 
     /// <summary>
     /// 
@@ -83,7 +68,7 @@ namespace Fixit.Core.Storage.Queue.Adapters
     /// <param name="timeToLive"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<SendReceipt> SendMessageAsync(BinaryData message, TimeSpan? visibilityTimeout, TimeSpan? timeToLive, CancellationToken cancellationToken);
+    Task<Response<SendReceipt>> SendMessageAsync(BinaryData message, TimeSpan? visibilityTimeout, TimeSpan? timeToLive, CancellationToken cancellationToken);
 
     /// <summary>
     /// 
@@ -92,10 +77,9 @@ namespace Fixit.Core.Storage.Queue.Adapters
     /// <param name="popReceipt"></param>
     /// <param name="messageText"></param>
     /// <param name="visibilityTimeout"></param>
-    /// <param name="timeToLive"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<UpdateReceipt> UpdateMessageAsync(string messageId, string popReceipt, string messageText, TimeSpan? visibilityTimeout, TimeSpan? timeToLive, CancellationToken cancellationToken);
+    Task<Response<UpdateReceipt>> UpdateMessageAsync(string messageId, string popReceipt, string messageText, TimeSpan visibilityTimeout, CancellationToken cancellationToken);
 
     /// <summary>
     /// 
@@ -104,9 +88,8 @@ namespace Fixit.Core.Storage.Queue.Adapters
     /// <param name="popReceipt"></param>
     /// <param name="message"></param>
     /// <param name="visibilityTimeout"></param>
-    /// <param name="timeToLive"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<UpdateReceipt> UpdateMessageAsync(string messageId, string popReceipt, BinaryData message, TimeSpan? visibilityTimeout, TimeSpan? timeToLive, CancellationToken cancellationToken);
+    Task<Response<UpdateReceipt>> UpdateMessageAsync(string messageId, string popReceipt, BinaryData message, TimeSpan visibilityTimeout, CancellationToken cancellationToken);
   }
 }

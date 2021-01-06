@@ -6,10 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Fixit.Core.DataContracts" Version="1.0.30-beta" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Queues\" />
+    <PackageReference Include="System.Memory.Data" Version="1.0.1" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,12 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Fixit.Core.DataContracts;
+
+namespace Fixit.Core.Storage.DataContracts.Queue
+{
+  public class ReceivedMessageDto : OperationStatus
+  {
+    public QueueMessageDto Message { get; set; }
+  }
+}
