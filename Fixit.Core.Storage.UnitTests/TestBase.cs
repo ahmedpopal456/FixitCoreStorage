@@ -1,6 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Fixit.Core.DataContracts;
+using Fixit.Core.Storage.Queue.Adapters;
+using Fixit.Core.Storage.UnitTests.FakeDataProviders;
+using AutoMapper;
+using Fixit.Core.Storage.Queue.Mappers;
 
 namespace Fixit.Core.Storage.UnitTests
 {
@@ -8,13 +12,19 @@ namespace Fixit.Core.Storage.UnitTests
   {
     public IFakeSeederFactory fakeDtoSeederFactory;
 
-    //protected Mock<IDatabaseAdapter> _cosmosDatabaseAdapter;
-    //protected Mock<IDatabaseTableAdapter> _cosmosDatabaseTableAdapter;
-    //protected Mock<IDatabaseTableEntityAdapter> _cosmosDatabaseTableEntityAdapter;
+    // Storage System Mocks
+    protected Mock<IQueueServiceAdapter> _queueServiceAdapter;
+    protected Mock<IQueueAdapter> _queueAdapter;
+
+    // Mapper
+    protected MapperConfiguration _mapperConfiguration = new MapperConfiguration(config =>
+    {
+      config.AddProfile(new QueueMapper());
+    });
 
     public TestBase()
     {
-      //fakeDtoSeederFactory = new FakeDtoSeederFactory();
+      fakeDtoSeederFactory = new FakeDtoSeederFactory();
     }
 
     [AssemblyInitialize]

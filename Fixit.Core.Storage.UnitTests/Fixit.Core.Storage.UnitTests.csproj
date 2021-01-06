@@ -19,9 +19,4 @@
     <ProjectReference Include="..\Fixit.Core.Storage\Fixit.Core.Storage.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="FakeDataProviders\Queues\" />
-    <Folder Include="Mediators\Queues\" />
-  </ItemGroup>
-
 </Project>
