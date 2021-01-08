@@ -16,22 +16,7 @@ namespace Fixit.Core.Storage.Queue.Mediators
     /// <param name="popReceipt"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<OperationStatus> DeleteMessageAsync(string messageId, string popReceipt, CancellationToken cancellationToken);
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    Task<PeekedMessageDto> PeekMessageAsync(CancellationToken cancellationToken);
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="maxMessages"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    Task<PeekedMessagesDto> PeekMessagesAsync(int? maxMessages, CancellationToken cancellationToken);
+    Task<OperationStatus> DeleteMessageAsync(string messageId, string popReceipt, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 
@@ -39,7 +24,7 @@ namespace Fixit.Core.Storage.Queue.Mediators
     /// <param name="visibilityTimeout"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<ReceivedMessageDto> ReceiveMessageAsync(TimeSpan? visibilityTimeout, CancellationToken cancellationToken);
+    Task<ReceivedMessageDto> ReceiveMessageAsync(TimeSpan? visibilityTimeout = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 
@@ -48,7 +33,7 @@ namespace Fixit.Core.Storage.Queue.Mediators
     /// <param name="visibilityTimeout"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<ReceivedMessagesDto> ReceiveMessagesAsync(int? maxMessages, TimeSpan? visibilityTimeout, CancellationToken cancellationToken);
+    Task<ReceivedMessagesDto> ReceiveMessagesAsync(int? maxMessages = default, TimeSpan? visibilityTimeout = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 
@@ -58,7 +43,7 @@ namespace Fixit.Core.Storage.Queue.Mediators
     /// <param name="timeToLive"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<OperationStatus> SendMessageAsync(string messageText, TimeSpan? visibilityTimeout, TimeSpan? timeToLive, CancellationToken cancellationToken);
+    Task<OperationStatus> SendMessageAsync(string messageText, TimeSpan? visibilityTimeout = default, TimeSpan? timeToLive = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 
@@ -68,7 +53,7 @@ namespace Fixit.Core.Storage.Queue.Mediators
     /// <param name="timeToLive"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<OperationStatus> SendMessageAsync(BinaryData message, TimeSpan? visibilityTimeout, TimeSpan? timeToLive, CancellationToken cancellationToken);
+    Task<OperationStatus> SendMessageAsync(BinaryData message, TimeSpan? visibilityTimeout = default, TimeSpan? timeToLive = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 
@@ -79,7 +64,7 @@ namespace Fixit.Core.Storage.Queue.Mediators
     /// <param name="visibilityTimeout"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<OperationStatus> UpdateMessageAsync(string messageId, string popReceipt, string messageText, TimeSpan visibilityTimeout, CancellationToken cancellationToken);
+    Task<OperationStatus> UpdateMessageAsync(string messageId, string popReceipt, string messageText = default, TimeSpan visibilityTimeout = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 
@@ -90,6 +75,6 @@ namespace Fixit.Core.Storage.Queue.Mediators
     /// <param name="visibilityTimeout"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<OperationStatus> UpdateMessageAsync(string messageId, string popReceipt, BinaryData message, TimeSpan visibilityTimeout, CancellationToken cancellationToken);
+    Task<OperationStatus> UpdateMessageAsync(string messageId, string popReceipt, BinaryData message, TimeSpan visibilityTimeout = default, CancellationToken cancellationToken = default);
   }
 }

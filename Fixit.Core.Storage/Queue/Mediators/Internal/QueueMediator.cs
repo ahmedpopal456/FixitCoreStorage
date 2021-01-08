@@ -56,53 +56,6 @@ namespace Fixit.Core.Storage.Queue.Mediators.Internal
       return result;
     }
 
-    public async Task<PeekedMessageDto> PeekMessageAsync(CancellationToken cancellationToken = default)
-    {
-      cancellationToken.ThrowIfCancellationRequested();
-      PeekedMessageDto result = new PeekedMessageDto() { IsOperationSuccessful = true };
-
-      try
-      {
-        var peekedMessage = await _queueAdapter.PeekMessageAsync(cancellationToken);
-        if (peekedMessage != null)
-        {
-          result.Message = _mapper.Map<PeekedMessage, MessageDto>(peekedMessage);
-        }
-      }
-      catch (Exception exception)
-      {
-        result.OperationException = exception;
-        result.IsOperationSuccessful = false;
-      }
-
-      return result;
-    }
-
-    public async Task<PeekedMessagesDto> PeekMessagesAsync(int? maxMessages = default, CancellationToken cancellationToken = default)
-    {
-      cancellationToken.ThrowIfCancellationRequested();
-      PeekedMessagesDto result = new PeekedMessagesDto() { IsOperationSuccessful = true };
-
-      try
-      {
-        var peekedMessages = await _queueAdapter.PeekMessagesAsync(maxMessages, cancellationToken);
-        if (peekedMessages.Length != default(int))
-        {
-          foreach (var message in peekedMessages)
-          {
-            result.Messages.Add(_mapper.Map<PeekedMessage, MessageDto>(message));
-          }
-        }
-      }
-      catch (Exception exception)
-      {
-        result.OperationException = exception;
-        result.IsOperationSuccessful = false;
-      }
-
-      return result;
-    }
-
     public async Task<ReceivedMessageDto> ReceiveMessageAsync(TimeSpan? visibilityTimeout = default, CancellationToken cancellationToken = default)
     {
       cancellationToken.ThrowIfCancellationRequested();
@@ -113,7 +66,7 @@ namespace Fixit.Core.Storage.Queue.Mediators.Internal
         var message = await _queueAdapter.ReceiveMessageAsync(visibilityTimeout, cancellationToken);
         if (message != null)
         {
-          result.Message = _mapper.Map<QueueMessage, QueueMessageDto>(message);
+          result.Message = _mapper.Map<QueueMessage, MessageDto>(message);
         }
       }
       catch (Exception exception)
@@ -137,7 +90,7 @@ namespace Fixit.Core.Storage.Queue.Mediators.Internal
         {
           foreach (var message in messages)
           {
-            result.Messages.Add(_mapper.Map<QueueMessage, QueueMessageDto>(message));
+            result.Messages.Add(_mapper.Map<QueueMessage, MessageDto>(message));
           }
         }
       }
@@ -155,7 +108,7 @@ namespace Fixit.Core.Storage.Queue.Mediators.Internal
       cancellationToken.ThrowIfCancellationRequested();
       OperationStatus result = new OperationStatus();
 
-      if (string.IsNullOrWhiteSpace(messageText))
+      if (string.IsNullOrEmpty(messageText))
       {
         throw new ArgumentNullException($"{nameof(SendMessageAsync)} expects a valid value for {nameof(messageText)}");
       }
@@ -265,6 +218,10 @@ namespace Fixit.Core.Storage.Queue.Mediators.Internal
       if (string.IsNullOrWhiteSpace(popReceipt))
       {
         throw new ArgumentNullException($"{nameof(UpdateMessageAsync)} expects a valid value for {nameof(popReceipt)}");
+      }
+      if (message == null)
+      {
+        throw new ArgumentNullException($"{nameof(UpdateMessageAsync)} expects a valid value for {nameof(message)}");
       }
 
       try

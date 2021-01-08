@@ -7,10 +7,10 @@ namespace Fixit.Core.Storage.DataContracts.Queue
 {
   public class ReceivedMessagesDto : OperationStatus
   {
-    private IList<QueueMessageDto> _messages;
-    public IList<QueueMessageDto> Messages
+    private IList<MessageDto> _messages;
+    public IList<MessageDto> Messages
     {
-      get => _messages ??= new List<QueueMessageDto>();
+      get => _messages ??= new List<MessageDto>();
       set => _messages = value;
     }
   }

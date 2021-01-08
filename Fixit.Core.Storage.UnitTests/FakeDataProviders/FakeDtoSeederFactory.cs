@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Fixit.Core.DataContracts;
+﻿using Fixit.Core.DataContracts;
+using Fixit.Core.Storage.DataContracts.Queue;
 
 namespace Fixit.Core.Storage.UnitTests.FakeDataProviders
 {
@@ -13,8 +11,8 @@ namespace Fixit.Core.Storage.UnitTests.FakeDataProviders
 
       switch (type)
       {
-        //case nameof(DocumentBase):
-        //  return (IFakeSeederAdapter<T>)new FakeDocumentBaseSeeder();
+        case nameof(MessageDto):
+          return (IFakeSeederAdapter<T>)new FakeMessageDtoSeeder();
         default:
           return null;
       }

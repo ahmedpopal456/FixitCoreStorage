@@ -22,16 +22,6 @@ namespace Fixit.Core.Storage.Queue.Adapters.Internal
       return (HttpStatusCode) (await _queueClient.DeleteMessageAsync(messageId, popReceipt, cancellationToken)).Status;
     }
 
-    public async Task<PeekedMessage> PeekMessageAsync(CancellationToken cancellationToken)
-    {
-      return await _queueClient.PeekMessageAsync(cancellationToken);
-    }
-
-    public async Task<PeekedMessage[]> PeekMessagesAsync(int? maxMessages, CancellationToken cancellationToken)
-    {
-      return await _queueClient.PeekMessagesAsync(maxMessages, cancellationToken);
-    }
-
     public async Task<QueueMessage> ReceiveMessageAsync(TimeSpan? visibilityTimeout, CancellationToken cancellationToken)
     {
       return await _queueClient.ReceiveMessageAsync(visibilityTimeout, cancellationToken);

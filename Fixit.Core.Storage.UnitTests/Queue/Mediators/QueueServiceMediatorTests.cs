@@ -158,7 +158,6 @@ namespace Fixit.Core.Storage.UnitTests.Queue.Mediators
       _queueAdapter.Reset();
 
       // Clean-up data objects
-      //_fakeUserProfilePictureUpdateRequestDtos = null;
     }
     #endregion
   }

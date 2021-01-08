@@ -21,21 +21,6 @@ namespace Fixit.Core.Storage.Queue.Adapters
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    Task<PeekedMessage> PeekMessageAsync(CancellationToken cancellationToken);
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="maxMessages"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    Task<PeekedMessage[]> PeekMessagesAsync(int? maxMessages, CancellationToken cancellationToken);
-
-    /// <summary>
-    /// 
-    /// </summary>
     /// <param name="visibilityTimeout"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>

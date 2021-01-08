@@ -7,6 +7,6 @@ namespace Fixit.Core.Storage.DataContracts.Queue
 {
   public class ReceivedMessageDto : OperationStatus
   {
-    public QueueMessageDto Message { get; set; }
+    public MessageDto Message { get; set; }
   }
 }
