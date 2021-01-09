@@ -120,7 +120,7 @@ namespace Fixit.Core.Storage.Queue.Mediators.Internal
         if (response != null)
         {
           HttpStatusCode statusCode = (HttpStatusCode) response.GetRawResponse().Status;
-          if (statusCode == HttpStatusCode.OK || statusCode == HttpStatusCode.NoContent)
+          if (statusCode == HttpStatusCode.OK || statusCode == HttpStatusCode.Created)
           {
             result.IsOperationSuccessful = true;
           }

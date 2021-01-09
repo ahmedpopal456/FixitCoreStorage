@@ -246,7 +246,7 @@ namespace Fixit.Core.Storage.UnitTests.Queue.Mediators
       _queueAdapter.Setup(queueAdapter => queueAdapter.SendMessageAsync(messageText, null, null, It.IsAny<CancellationToken>()))
                    .ReturnsAsync(_sendResponse.Object);
       _sendResponse.Setup(response => response.GetRawResponse().Status)
-                   .Returns(200);
+                   .Returns(201);
 
       // Act
       var actionResult = await _queueMediator.SendMessageAsync(messageText);
