@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Fixit.Core.DataContracts;
+﻿using Fixit.Core.DataContracts;
 
 namespace Fixit.Core.Storage.DataContracts.Queue
 {
