@@ -26,7 +26,7 @@ namespace Fixit.Core.Storage.UnitTests.Queue.Mediators
     private Mock<Response<SendReceipt>> _sendResponse;
     private Mock<Response<UpdateReceipt>> _updateResponse;
 
-    private IEnumerable<MessageDto> _fakeMessageDtos;
+    private IEnumerable<QueueMessageDto> _fakeMessageDtos;
 
     #region TestInitialize
     [TestInitialize]
@@ -41,7 +41,7 @@ namespace Fixit.Core.Storage.UnitTests.Queue.Mediators
       _updateResponse = new Mock<Response<UpdateReceipt>>();
 
       // Create Seeders
-      var fakeMessageDtoSeeder = fakeDtoSeederFactory.CreateFakeSeeder<MessageDto>();
+      var fakeMessageDtoSeeder = fakeDtoSeederFactory.CreateFakeSeeder<QueueMessageDto>();
 
       // Create fake data objects
       _fakeMessageDtos = fakeMessageDtoSeeder.SeedFakeDtos();
@@ -93,7 +93,7 @@ namespace Fixit.Core.Storage.UnitTests.Queue.Mediators
     {
       // Arrange
       _queueAdapter.Setup(queueAdapter => queueAdapter.DeleteMessageAsync(messageId, popReceipt, It.IsAny<CancellationToken>()))
-                   .ReturnsAsync(HttpStatusCode.NotFound);
+                   .ReturnsAsync(404);
 
       // Act
       var actionResult = await _queueMediator.DeleteMessageAsync(messageId, popReceipt);
@@ -110,7 +110,7 @@ namespace Fixit.Core.Storage.UnitTests.Queue.Mediators
     {
       // Arrange
       _queueAdapter.Setup(queueAdapter => queueAdapter.DeleteMessageAsync(messageId, popReceipt, It.IsAny<CancellationToken>()))
-                   .ReturnsAsync(HttpStatusCode.OK);
+                   .ReturnsAsync(200);
 
       // Act
       var actionResult = await _queueMediator.DeleteMessageAsync(messageId, popReceipt);
@@ -143,7 +143,7 @@ namespace Fixit.Core.Storage.UnitTests.Queue.Mediators
       // Arrange
       _queueAdapter.Setup(queueAdapter => queueAdapter.ReceiveMessageAsync(null, It.IsAny<CancellationToken>()))
                    .ReturnsAsync(_queueMessage.Object);
-      _mapper.Setup(mapper => mapper.Map<QueueMessage, MessageDto>(It.IsAny<QueueMessage>()))
+      _mapper.Setup(mapper => mapper.Map<QueueMessage, QueueMessageDto>(It.IsAny<QueueMessage>()))
              .Returns(_fakeMessageDtos.First());
 
       // Act
@@ -178,7 +178,7 @@ namespace Fixit.Core.Storage.UnitTests.Queue.Mediators
       // Arrange
       _queueAdapter.Setup(queueAdapter => queueAdapter.ReceiveMessagesAsync(null, null, It.IsAny<CancellationToken>()))
                    .ReturnsAsync(new QueueMessage[] { _queueMessage.Object, _queueMessage.Object });
-      _mapper.Setup(mapper => mapper.Map<QueueMessage, MessageDto>(It.IsAny<QueueMessage>()))
+      _mapper.Setup(mapper => mapper.Map<QueueMessage, QueueMessageDto>(It.IsAny<QueueMessage>()))
              .Returns(_fakeMessageDtos.First());
 
       // Act
@@ -318,7 +318,7 @@ namespace Fixit.Core.Storage.UnitTests.Queue.Mediators
       _queueAdapter.Setup(queueAdapter => queueAdapter.SendMessageAsync(message, null, null, It.IsAny<CancellationToken>()))
                    .ReturnsAsync(_sendResponse.Object);
       _sendResponse.Setup(response => response.GetRawResponse().Status)
-                   .Returns(200);
+                   .Returns(201);
       
       // Act
       var actionResult = await _queueMediator.SendMessageAsync(message);

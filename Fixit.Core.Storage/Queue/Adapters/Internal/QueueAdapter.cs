@@ -17,9 +17,9 @@ namespace Fixit.Core.Storage.Queue.Adapters.Internal
       _queueClient = queueClient ?? throw new ArgumentNullException($"{nameof(QueueAdapter)} expects a value for {nameof(queueClient)}... null argument was provided");
     }
 
-    public async Task<HttpStatusCode> DeleteMessageAsync(string messageId, string popReceipt, CancellationToken cancellationToken)
+    public async Task<int> DeleteMessageAsync(string messageId, string popReceipt, CancellationToken cancellationToken)
     {
-      return (HttpStatusCode) (await _queueClient.DeleteMessageAsync(messageId, popReceipt, cancellationToken)).Status;
+      return (await _queueClient.DeleteMessageAsync(messageId, popReceipt, cancellationToken)).Status;
     }
 
     public async Task<QueueMessage> ReceiveMessageAsync(TimeSpan? visibilityTimeout, CancellationToken cancellationToken)

@@ -11,7 +11,7 @@ namespace Fixit.Core.Storage.UnitTests.FakeDataProviders
 
       switch (type)
       {
-        case nameof(MessageDto):
+        case nameof(QueueMessageDto):
           return (IFakeSeederAdapter<T>)new FakeMessageDtoSeeder();
         default:
           return null;

@@ -2,7 +2,7 @@
 
 namespace Fixit.Core.Storage.DataContracts.Queue
 {
-  public class MessageDto
+  public class QueueMessageDto
   {
     public string MessageId { get; set; }
 

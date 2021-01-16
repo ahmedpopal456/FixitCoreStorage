@@ -5,11 +5,11 @@ using Fixit.Core.Storage.DataContracts.Queue;
 
 namespace Fixit.Core.Storage.UnitTests.FakeDataProviders
 {
-  public class FakeMessageDtoSeeder : IFakeSeederAdapter<MessageDto>
+  public class FakeMessageDtoSeeder : IFakeSeederAdapter<QueueMessageDto>
   {
-    public IList<MessageDto> SeedFakeDtos()
+    public IList<QueueMessageDto> SeedFakeDtos()
     {
-      MessageDto firstMessage = new MessageDto()
+      QueueMessageDto firstMessage = new QueueMessageDto()
       {
         Body = new BinaryData("Hello"),
         DequeueCount = 0,
@@ -19,9 +19,9 @@ namespace Fixit.Core.Storage.UnitTests.FakeDataProviders
         NextVisibleOnUtc = DateTimeOffset.UtcNow,
         PopReceipt = "123"
       };
-      MessageDto secondMessage = null;
+      QueueMessageDto secondMessage = null;
 
-      return new List<MessageDto>
+      return new List<QueueMessageDto>
       {
         firstMessage,
         secondMessage

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure;
@@ -16,7 +15,7 @@ namespace Fixit.Core.Storage.Queue.Adapters
     /// <param name="popReceipt"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<HttpStatusCode> DeleteMessageAsync(string messageId, string popReceipt, CancellationToken cancellationToken);
+    Task<int> DeleteMessageAsync(string messageId, string popReceipt, CancellationToken cancellationToken);
 
     /// <summary>
     /// 

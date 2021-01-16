@@ -8,7 +8,7 @@ namespace Fixit.Core.Storage.Queue.Mappers
   {
     public QueueMapper()
     {
-      CreateMap<QueueMessage, MessageDto>()
+      CreateMap<QueueMessage, QueueMessageDto>()
         .ForMember(messageDto => messageDto.Body, opts => opts.MapFrom(queueMessage => queueMessage.Body))
         .ForMember(messageDto => messageDto.DequeueCount, opts => opts.MapFrom(queueMessage => queueMessage.DequeueCount))
         .ForMember(messageDto => messageDto.ExpiresOnUtc, opts => opts.MapFrom(queueMessage => queueMessage.ExpiresOn))

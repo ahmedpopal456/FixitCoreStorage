@@ -24,7 +24,7 @@ namespace Fixit.Core.Storage.Queue.Mediators
     /// <param name="visibilityTimeout"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<ReceivedMessageDto> ReceiveMessageAsync(TimeSpan? visibilityTimeout = default, CancellationToken cancellationToken = default);
+    Task<QueueMessageResponseDto> ReceiveMessageAsync(TimeSpan? visibilityTimeout = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 
@@ -33,7 +33,7 @@ namespace Fixit.Core.Storage.Queue.Mediators
     /// <param name="visibilityTimeout"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<ReceivedMessagesDto> ReceiveMessagesAsync(int? maxMessages = default, TimeSpan? visibilityTimeout = default, CancellationToken cancellationToken = default);
+    Task<QueueMessagesResponseDto> ReceiveMessagesAsync(int? maxMessages = default, TimeSpan? visibilityTimeout = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 
