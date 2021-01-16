@@ -36,7 +36,7 @@ namespace Fixit.Core.Storage.Queue.Mediators.Internal
       result = await _decorator.ExecuteOperationAsync(result, async() => {
         var statusCode = await _queueAdapter.DeleteMessageAsync(messageId, popReceipt, cancellationToken);
         result.IsOperationSuccessful = QueueValidators.IsSuccessStatusCode(statusCode);
-        result.OperationMessage = statusCode.ToString();
+        result.OperationMessage = ((HttpStatusCode)statusCode).ToString();
       });
       return result;
     }
@@ -46,7 +46,7 @@ namespace Fixit.Core.Storage.Queue.Mediators.Internal
       cancellationToken.ThrowIfCancellationRequested();
       QueueMessageResponseDto result = new QueueMessageResponseDto() { IsOperationSuccessful = true };
 
-      result = await _decorator.ExecuteOperationAsync(result, async () => {
+      result = (QueueMessageResponseDto) await _decorator.ExecuteOperationAsync(result, async () => {
         var message = await _queueAdapter.ReceiveMessageAsync(visibilityTimeout, cancellationToken);
         if (message != null)
         {
@@ -61,7 +61,7 @@ namespace Fixit.Core.Storage.Queue.Mediators.Internal
       cancellationToken.ThrowIfCancellationRequested();
       QueueMessagesResponseDto result = new QueueMessagesResponseDto() { IsOperationSuccessful = true };
 
-      result = await _decorator.ExecuteOperationAsync(result, async () => {
+      result = (QueueMessagesResponseDto) await _decorator.ExecuteOperationAsync(result, async () => {
         var messages = await _queueAdapter.ReceiveMessagesAsync(maxMessages, visibilityTimeout, cancellationToken);
         if (messages.Length != default(int))
         {
@@ -91,7 +91,7 @@ namespace Fixit.Core.Storage.Queue.Mediators.Internal
         {
           var statusCode = response.GetRawResponse().Status;
           result.IsOperationSuccessful = QueueValidators.IsSuccessStatusCode(statusCode);
-          result.OperationMessage = statusCode.ToString();
+          result.OperationMessage = ((HttpStatusCode)statusCode).ToString();
         }
       });
       return result;
@@ -114,7 +114,7 @@ namespace Fixit.Core.Storage.Queue.Mediators.Internal
         {
           var statusCode = response.GetRawResponse().Status;
           result.IsOperationSuccessful = QueueValidators.IsSuccessStatusCode(statusCode);
-          result.OperationMessage = statusCode.ToString();
+          result.OperationMessage = ((HttpStatusCode)statusCode).ToString();
         }
       });
       return result;
@@ -134,7 +134,7 @@ namespace Fixit.Core.Storage.Queue.Mediators.Internal
         {
           var statusCode = response.GetRawResponse().Status;
           result.IsOperationSuccessful = QueueValidators.IsSuccessStatusCode(statusCode);
-          result.OperationMessage = statusCode.ToString();
+          result.OperationMessage = ((HttpStatusCode)statusCode).ToString();
         }
       });
       return result;
@@ -159,7 +159,7 @@ namespace Fixit.Core.Storage.Queue.Mediators.Internal
         {
           var statusCode = response.GetRawResponse().Status;
           result.IsOperationSuccessful = QueueValidators.IsSuccessStatusCode(statusCode);
-          result.OperationMessage = statusCode.ToString();
+          result.OperationMessage = ((HttpStatusCode)statusCode).ToString();
         }
       });
       return result;

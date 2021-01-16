@@ -4,9 +4,9 @@ using Fixit.Core.DataContracts;
 
 namespace Fixit.Core.Storage.Queue.Helpers
 {
-  public class OperationStatusTryCatchDecorator
+  public class OperationStatusTryCatchDecorator : ITryCatchDecorator<OperationStatus>
   {
-    public async Task<T> ExecuteOperationAsync<T>(T result, Func<Task> executingFunction) where T : OperationStatus
+    public async Task<OperationStatus> ExecuteOperationAsync(OperationStatus result, Func<Task> executingFunction)
     {
       try
       {
