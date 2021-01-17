@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,7 +19,7 @@ namespace Fixit.Core.Storage.Queue.Adapters
     /// </summary>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<HttpStatusCode> DeleteQueueAsync(string queueName, CancellationToken cancellationToken);
+    Task<int> DeleteQueueAsync(string queueName, CancellationToken cancellationToken);
 
     /// <summary>
     /// 

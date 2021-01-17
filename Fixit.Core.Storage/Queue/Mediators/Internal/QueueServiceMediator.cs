@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Fixit.Core.DataContracts;
 using Fixit.Core.Storage.Queue.Adapters;
+using Fixit.Core.Storage.Queue.Helpers;
 
 namespace Fixit.Core.Storage.Queue.Mediators.Internal
 {
@@ -13,11 +14,13 @@ namespace Fixit.Core.Storage.Queue.Mediators.Internal
   {
     private IQueueServiceAdapter _queueServiceAdapter;
     private IMapper _mapper;
+    private OperationStatusExceptionDecorator _decorator;
 
     public QueueServiceMediator(IQueueServiceAdapter queueServiceAdapter, IMapper mapper)
     {
       _queueServiceAdapter = queueServiceAdapter ?? throw new ArgumentNullException($"{nameof(QueueServiceMediator)} expects a value for {nameof(queueServiceAdapter)}... null argument was provided");
       _mapper = mapper ?? throw new ArgumentNullException($"{nameof(QueueServiceMediator)} expects a value for {nameof(mapper)}... null argument was provided");
+      _decorator = new OperationStatusExceptionDecorator();
     }
 
     public async Task<IQueueMediator> CreateQueueAsync(string queueName, IDictionary<string, string> metadata = default, CancellationToken cancellationToken = default)
@@ -35,29 +38,19 @@ namespace Fixit.Core.Storage.Queue.Mediators.Internal
     public async Task<OperationStatus> DeleteQueueAsync(string queueName, CancellationToken cancellationToken = default)
     {
       cancellationToken.ThrowIfCancellationRequested();
-      OperationStatus result = new OperationStatus();
 
       if (string.IsNullOrWhiteSpace(queueName))
       {
         throw new ArgumentNullException($"{nameof(DeleteQueueAsync)} expects a valid value for {nameof(queueName)}");
       }
+      OperationStatus result = new OperationStatus();
 
-      try
-      {
-        HttpStatusCode statusCode = await _queueServiceAdapter.DeleteQueueAsync(queueName, cancellationToken);
+      result = await _decorator.ExecuteOperationAsync(result, async () => {
+        var statusCode = await _queueServiceAdapter.DeleteQueueAsync(queueName, cancellationToken);
 
-        if (statusCode == HttpStatusCode.OK || statusCode == HttpStatusCode.NoContent)
-        {
-          result.IsOperationSuccessful = true;
-        }
+        result.IsOperationSuccessful = QueueValidators.IsSuccessStatusCode(statusCode);
         result.OperationMessage = statusCode.ToString();
-      }
-      catch (Exception exception)
-      {
-        result.OperationException = exception;
-        result.IsOperationSuccessful = false;
-      }
-
+      });
       return result;
     }
 

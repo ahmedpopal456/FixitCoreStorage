@@ -17,13 +17,13 @@ namespace Fixit.Core.Storage.Queue.Mediators.Internal
   {
     private IQueueAdapter _queueAdapter;
     private IMapper _mapper;
-    private OperationStatusTryCatchDecorator _decorator;
+    private OperationStatusExceptionDecorator _decorator;
 
     public QueueMediator(IQueueAdapter queueAdapter, IMapper mapper)
     {
       _queueAdapter = queueAdapter ?? throw new ArgumentNullException($"{nameof(QueueMediator)} expects a value for {nameof(queueAdapter)}... null argument was provided");
       _mapper = mapper ?? throw new ArgumentNullException($"{nameof(QueueMediator)} expects a value for {nameof(mapper)}... null argument was provided");
-      _decorator = new OperationStatusTryCatchDecorator();
+      _decorator = new OperationStatusExceptionDecorator();
     }
 
     public async Task<OperationStatus> DeleteMessageAsync(string messageId, string popReceipt, CancellationToken cancellationToken = default)

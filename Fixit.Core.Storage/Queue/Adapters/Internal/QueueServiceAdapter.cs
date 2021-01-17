@@ -21,9 +21,9 @@ namespace Fixit.Core.Storage.Queue.Adapters.Internal
       return new QueueAdapter(await _queueServiceClient.CreateQueueAsync(queueName, metadata, cancellationToken));
     }
 
-    public async Task<HttpStatusCode> DeleteQueueAsync(string queueName, CancellationToken cancellationToken)
+    public async Task<int> DeleteQueueAsync(string queueName, CancellationToken cancellationToken)
     {
-      return (HttpStatusCode) (await _queueServiceClient.DeleteQueueAsync(queueName, cancellationToken)).Status;
+      return (await _queueServiceClient.DeleteQueueAsync(queueName, cancellationToken)).Status;
     }
 
     public IQueueAdapter GetQueueClient(string queueName)

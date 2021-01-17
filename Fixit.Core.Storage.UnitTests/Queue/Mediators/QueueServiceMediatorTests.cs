@@ -92,7 +92,7 @@ namespace Fixit.Core.Storage.UnitTests.Queue.Mediators
       var cancellationToken = CancellationToken.None;
 
       _queueServiceAdapter.Setup(queueServiceAdapter => queueServiceAdapter.DeleteQueueAsync(queueName, It.IsAny<CancellationToken>()))
-                          .ReturnsAsync(HttpStatusCode.NotFound);
+                          .ReturnsAsync(404);
 
       // Act
       var actionResult = await _queueServiceMediator.DeleteQueueAsync(queueName);
@@ -111,7 +111,7 @@ namespace Fixit.Core.Storage.UnitTests.Queue.Mediators
       var cancellationToken = CancellationToken.None;
 
       _queueServiceAdapter.Setup(queueServiceAdapter => queueServiceAdapter.DeleteQueueAsync(queueName, It.IsAny<CancellationToken>()))
-                          .ReturnsAsync(HttpStatusCode.OK);
+                          .ReturnsAsync(200);
 
       // Act
       var actionResult = await _queueServiceMediator.DeleteQueueAsync(queueName);
