@@ -11,9 +11,14 @@ namespace Fixit.Core.Storage.Queue.Adapters.Internal
   {
     private readonly QueueServiceClient _queueServiceClient;
 
-    public QueueServiceClientAdapter(QueueServiceClient queueServiceClient)
+    public QueueServiceClientAdapter(string queueConnectionString)
     {
-      _queueServiceClient = queueServiceClient ?? throw new ArgumentNullException($"{nameof(QueueServiceClientAdapter)} expects a value for {nameof(queueServiceClient)}... null argument was provided");
+      if (string.IsNullOrWhiteSpace(queueConnectionString))
+      {
+        throw new ArgumentNullException($"{nameof(QueueServiceClientAdapter)} expects a valid value for {nameof(queueConnectionString)}");
+      }
+
+      _queueServiceClient = new QueueServiceClient(queueConnectionString);
     }
 
     public async Task<IQueueClientAdapter> CreateQueueAsync(string queueName, IDictionary<string, string> metadata, CancellationToken cancellationToken)

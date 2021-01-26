@@ -1,6 +1,5 @@
 ﻿using System;
 using AutoMapper;
-using Azure.Storage.Queues;
 using Fixit.Core.Storage.Queue.Adapters.Internal;
 using Fixit.Core.Storage.Queue.Mappers;
 using Fixit.Core.Storage.Queue.Mediators;
@@ -42,8 +41,7 @@ namespace Fixit.Core.Storage
         mc.AddProfile(new QueueMapper());
       });
 
-      QueueServiceClient queueServiceClient = new QueueServiceClient(_queueConnectionString);
-      QueueServiceClientAdapter queueServiceAdapter = new QueueServiceClientAdapter(queueServiceClient);
+      QueueServiceClientAdapter queueServiceAdapter = new QueueServiceClientAdapter(_queueConnectionString);
       return new QueueServiceClientMediator(queueServiceAdapter, mapperConfig.CreateMapper());
     }
   }
