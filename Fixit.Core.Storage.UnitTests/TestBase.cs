@@ -5,6 +5,7 @@ using Fixit.Core.Storage.Queue.Adapters;
 using Fixit.Core.Storage.UnitTests.FakeDataProviders;
 using AutoMapper;
 using Fixit.Core.Storage.Queue.Mappers;
+using Fixit.Core.DataContracts.Seeders;
 
 namespace Fixit.Core.Storage.UnitTests
 {

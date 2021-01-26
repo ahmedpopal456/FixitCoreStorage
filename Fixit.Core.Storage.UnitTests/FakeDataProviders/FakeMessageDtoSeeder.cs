@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Fixit.Core.DataContracts;
+using Fixit.Core.DataContracts.Seeders;
 using Fixit.Core.Storage.DataContracts.Queue;
 
 namespace Fixit.Core.Storage.UnitTests.FakeDataProviders
