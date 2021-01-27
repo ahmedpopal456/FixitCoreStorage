@@ -11,5 +11,8 @@ namespace Fixit.Core.Storage.DataContracts.Queue
       get => _messages ??= new List<QueueMessageDto>();
       set => _messages = value;
     }
+    public QueueMessagesResponseDto() { }
+
+    public QueueMessagesResponseDto(bool isOperationSuccessful) { IsOperationSuccessful = isOperationSuccessful; }
   }
 }

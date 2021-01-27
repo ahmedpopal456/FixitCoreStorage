@@ -35,7 +35,7 @@ namespace Fixit.Core.Storage
       _queueConnectionString = queueConnectionString;
     }
 
-    public IQueueServiceMediator CreateQueueServiceClient()
+    public IQueueServiceClientMediator CreateQueueServiceClientMediator()
     {
       var mapperConfig = new MapperConfiguration(mc =>
       {
@@ -43,8 +43,8 @@ namespace Fixit.Core.Storage
       });
 
       QueueServiceClient queueServiceClient = new QueueServiceClient(_queueConnectionString);
-      QueueServiceAdapter queueServiceAdapter = new QueueServiceAdapter(queueServiceClient);
-      return new QueueServiceMediator(queueServiceAdapter, mapperConfig.CreateMapper());
+      QueueServiceClientAdapter queueServiceAdapter = new QueueServiceClientAdapter(queueServiceClient);
+      return new QueueServiceClientMediator(queueServiceAdapter, mapperConfig.CreateMapper());
     }
   }
 }

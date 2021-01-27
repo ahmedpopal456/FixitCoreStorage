@@ -13,8 +13,8 @@ namespace Fixit.Core.Storage.UnitTests
     public IFakeSeederFactory fakeDtoSeederFactory;
 
     // Storage System Mocks
-    protected Mock<IQueueServiceAdapter> _queueServiceAdapter;
-    protected Mock<IQueueAdapter> _queueAdapter;
+    protected Mock<IQueueServiceClientAdapter> _queueServiceAdapter;
+    protected Mock<IQueueClientAdapter> _queueAdapter;
 
     // Mapper
     protected MapperConfiguration _mapperConfiguration = new MapperConfiguration(config =>
