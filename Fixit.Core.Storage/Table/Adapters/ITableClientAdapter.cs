@@ -12,6 +12,8 @@ namespace Fixit.Core.Storage.Table.Adapters
 
     public Task<TableResult> ExecuteAsync(TableOperation operation, CancellationToken cancellationToken);
 
+    public Task<TableQuerySegment<T>> ExecuteQuerySegmentedAsync<T>(TableQuery<T> query, TableContinuationToken continuationToken, CancellationToken cancellationToken) where T : TableEntity, new();
+
     public Task<bool> ExistsAsync(CancellationToken cancellationToken);
   }
 }

@@ -29,6 +29,11 @@ namespace Fixit.Core.Storage.Table.Adapters.Internal
       return _cloudTable.ExecuteAsync(operation, cancellationToken);
     }
 
+    public Task<TableQuerySegment<T>> ExecuteQuerySegmentedAsync<T>(TableQuery<T> query, TableContinuationToken continuationToken, CancellationToken cancellationToken) where T: TableEntity, new()
+    {
+      return _cloudTable.ExecuteQuerySegmentedAsync(query, continuationToken);
+    }
+
     public Task<bool> ExistsAsync(CancellationToken cancellationToken)
     {
       return _cloudTable.ExistsAsync(cancellationToken);
