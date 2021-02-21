@@ -1,16 +1,16 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using AutoMapper;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Fixit.Core.DataContracts;
 using Fixit.Core.Storage.Queue.Adapters;
 using Fixit.Core.Storage.UnitTests.FakeDataProviders;
-using AutoMapper;
 using Fixit.Core.Storage.Queue.Mappers;
+using Fixit.Core.DataContracts.Seeders;
 
 namespace Fixit.Core.Storage.UnitTests
 {
   public class TestBase
   {
-    public IFakeSeederFactory fakeDtoSeederFactory;
+    public IFakeSeederFactory _fakeDtoSeederFactory;
 
     // Storage System Mocks
     protected Mock<IQueueServiceClientAdapter> _queueServiceAdapter;
@@ -24,7 +24,7 @@ namespace Fixit.Core.Storage.UnitTests
 
     public TestBase()
     {
-      fakeDtoSeederFactory = new FakeDtoSeederFactory();
+      _fakeDtoSeederFactory = new FakeDtoSeederFactory();
     }
 
     [AssemblyInitialize]

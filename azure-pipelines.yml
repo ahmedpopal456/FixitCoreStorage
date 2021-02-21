@@ -141,7 +141,7 @@ jobs:
       command: 'test'
       testRunTitle: 'Fixit Core Storage Unit Tests'
       projects: '**/Fixit.Core.Storage.UnitTests.csproj'
-      arguments: '--configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+      arguments: '--configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:ExcludeByFile=\"*/**/StorageFactory.cs%2c\"'
       nobuild: true
 
   - script: |
