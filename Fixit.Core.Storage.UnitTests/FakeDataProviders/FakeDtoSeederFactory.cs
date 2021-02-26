@@ -1,21 +1,13 @@
-﻿using Fixit.Core.DataContracts.Seeders;
-using Fixit.Core.Storage.DataContracts.Queue;
+﻿using System.Collections.Generic;
+using Fixit.Core.DataContracts.Seeders;
 
 namespace Fixit.Core.Storage.UnitTests.FakeDataProviders
 {
   public class FakeDtoSeederFactory : IFakeSeederFactory
   {
-    public IFakeSeederAdapter<T> CreateFakeSeeder<T>() where T : class
+    public IList<T> CreateSeederFactory<T>(IFakeSeederAdapter<T> fakeSeederAdapter) where T : class
     {
-      string type = typeof(T).Name;
-
-      switch (type)
-      {
-        case nameof(QueueMessageDto):
-          return (IFakeSeederAdapter<T>)new FakeMessageDtoSeeder();
-        default:
-          return null;
-      }
+      return fakeSeederAdapter.SeedFakeDtos();
     }
   }
 }
