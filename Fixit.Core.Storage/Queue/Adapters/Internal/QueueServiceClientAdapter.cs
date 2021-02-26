@@ -4,9 +4,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Storage.Queues;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Fixit.Core.Storage.Queue.Adapters.Internal
 {
+  [ExcludeFromCodeCoverage]
   internal class QueueServiceClientAdapter : IQueueServiceClientAdapter
   {
     private readonly QueueServiceClient _queueServiceClient;

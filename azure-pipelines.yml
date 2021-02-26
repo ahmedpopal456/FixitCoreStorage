@@ -107,7 +107,29 @@ jobs:
     inputs:
       projects: '$(buildProjects)'
       arguments: '--configuration $(buildConfiguration) --no-restore'
-  
+
+   # Test
+  - task: DotNetCoreCLI@2
+    displayName: Unit Tests
+    inputs:
+      command: 'test'
+      testRunTitle: 'Fixit Core Storage Unit Tests'
+      projects: '**/Fixit.Core.Storage.UnitTests.csproj'
+      arguments: '--configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
+      nobuild: true
+
+  - script: |
+      dotnet tool install -g dotnet-reportgenerator-globaltool
+      reportgenerator -reports:$(Build.SourcesDirectory)/**/Fixit.Core.Storage.UnitTests/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines;Cobertura
+    displayName: Create Code coverage report
+
+  - task: PublishCodeCoverageResults@1
+    displayName: 'Publish code coverage'
+    inputs:
+      codeCoverageTool: 'Cobertura'
+      summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
+      reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage' 
+
   # Pack
   - task: DotNetCoreCLI@2
     displayName: "Pack"
