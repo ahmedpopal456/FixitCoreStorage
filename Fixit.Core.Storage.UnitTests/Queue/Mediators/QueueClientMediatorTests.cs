@@ -42,7 +42,7 @@ namespace Fixit.Core.Storage.UnitTests.Queue.Mediators
       _updateResponse = new Mock<Response<UpdateReceipt>>();
 
       // Create fake data objects
-      _fakeMessageDtos = fakeDtoSeederFactory.CreateSeederFactory<QueueMessageDto>(new QueueMessageDto());
+      _fakeMessageDtos = _fakeDtoSeederFactory.CreateSeederFactory<QueueMessageDto>(new QueueMessageDto());
 
       _queueMediator = new QueueClientMediator(_queueAdapter.Object, _mapper.Object);
     }
