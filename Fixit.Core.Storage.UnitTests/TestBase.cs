@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Fixit.Core.DataContracts;
 using Fixit.Core.Storage.Queue.Adapters;
 using Fixit.Core.Storage.UnitTests.FakeDataProviders;
 using AutoMapper;
