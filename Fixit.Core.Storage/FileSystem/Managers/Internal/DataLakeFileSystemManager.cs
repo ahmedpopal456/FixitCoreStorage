@@ -9,10 +9,10 @@ using AutoMapper;
 using Fixit.Core.DataContracts;
 using Fixit.Core.Storage.DataContracts.FileSystem.Directories;
 using Fixit.Core.Storage.DataContracts.FileSystem.Files;
+using Fixit.Core.Storage.DataContracts.FileSystem.Models;
 using Fixit.Core.Storage.DataContracts.Helpers;
 using Fixit.Core.Storage.FileSystem.Adapters;
 using Fixit.Core.Storage.FileSystem.Constants;
-using Fixit.Core.Storage.FileSystem.Models;
 using Fixit.Core.Storage.Storage.Blob.Adapters;
 using Microsoft.Azure.Storage.Blob;
 

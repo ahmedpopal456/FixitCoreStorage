@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Fixit.Core.Storage.DataContracts.FileSystem.Files;
-using Fixit.Core.Storage.FileSystem.Models;
+using Fixit.Core.Storage.DataContracts.FileSystem.Models;
 
 namespace Fixit.Core.Storage.FileSystem.Mappers
 {

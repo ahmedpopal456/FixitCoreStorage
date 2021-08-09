@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Fixit.Core.DataContracts;
 using Fixit.Core.Storage.DataContracts.FileSystem.Directories;
 using Fixit.Core.Storage.DataContracts.FileSystem.Files;
-using Fixit.Core.Storage.FileSystem.Models;
+using Fixit.Core.Storage.DataContracts.FileSystem.Models;
 
 namespace Fixit.Core.Storage.FileSystem.Managers
 {
