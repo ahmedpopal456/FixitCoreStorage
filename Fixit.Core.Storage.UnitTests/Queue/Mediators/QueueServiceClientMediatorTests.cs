@@ -2,9 +2,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Azure;
-using Fixit.Core.Storage.Queue.Adapters;
-using Fixit.Core.Storage.Queue.Mediators;
-using Fixit.Core.Storage.Queue.Mediators.Internal;
+using Fixit.Core.Storage.Storage.Queue.Adapters;
+using Fixit.Core.Storage.Storage.Queue.Mediators;
+using Fixit.Core.Storage.Storage.Queue.Mediators.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Fixit.Core.Storage.Queue.Adapters;
 using Fixit.Core.Storage.UnitTests.FakeDataProviders;
-using Fixit.Core.Storage.Queue.Mappers;
 using Fixit.Core.DataContracts.Seeders;
+using Fixit.Core.Storage.Storage.Queue.Adapters;
+using Fixit.Core.Storage.Storage.Queue.Mappers;
 
 namespace Fixit.Core.Storage.UnitTests
 {

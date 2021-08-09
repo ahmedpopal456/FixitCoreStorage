@@ -1,10 +1,10 @@
 ﻿using System;
 using AutoMapper;
 using Azure.Storage.Queues;
-using Fixit.Core.Storage.Queue.Adapters.Internal;
-using Fixit.Core.Storage.Queue.Mappers;
-using Fixit.Core.Storage.Queue.Mediators;
-using Fixit.Core.Storage.Queue.Mediators.Internal;
+using Fixit.Core.Storage.Storage.Queue.Adapters.Internal;
+using Fixit.Core.Storage.Storage.Queue.Mappers;
+using Fixit.Core.Storage.Storage.Queue.Mediators;
+using Fixit.Core.Storage.Storage.Queue.Mediators.Internal;
 using Microsoft.Extensions.Configuration;
 
 namespace Fixit.Core.Storage

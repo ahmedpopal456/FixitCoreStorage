@@ -7,9 +7,9 @@ using AutoMapper;
 using Azure;
 using Azure.Storage.Queues.Models;
 using Fixit.Core.Storage.DataContracts.Queue;
-using Fixit.Core.Storage.Queue.Adapters;
-using Fixit.Core.Storage.Queue.Mediators;
-using Fixit.Core.Storage.Queue.Mediators.Internal;
+using Fixit.Core.Storage.Storage.Queue.Adapters;
+using Fixit.Core.Storage.Storage.Queue.Mediators;
+using Fixit.Core.Storage.Storage.Queue.Mediators.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
