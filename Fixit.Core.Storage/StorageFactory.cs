@@ -42,7 +42,12 @@ namespace Fixit.Core.Storage
         mc.AddProfile(new QueueMapper());
       });
 
-      QueueServiceClient queueServiceClient = new QueueServiceClient(_queueConnectionString);
+      QueueClientOptions queueClientOptions = new QueueClientOptions()
+      {
+        MessageEncoding = QueueMessageEncoding.Base64
+      };
+
+      QueueServiceClient queueServiceClient = new QueueServiceClient(_queueConnectionString, queueClientOptions);
       QueueServiceClientAdapter queueServiceAdapter = new QueueServiceClientAdapter(queueServiceClient);
       return new QueueServiceClientMediator(queueServiceAdapter, mapperConfig.CreateMapper());
     }
