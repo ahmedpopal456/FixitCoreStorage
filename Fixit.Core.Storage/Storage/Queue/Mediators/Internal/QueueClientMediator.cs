@@ -39,7 +39,7 @@ namespace Fixit.Core.Storage.Storage.Queue.Mediators.Internal
         var response = await _queueAdapter.DeleteMessageAsync(messageId, popReceipt, cancellationToken);
         result.IsOperationSuccessful = QueueValidators.IsSuccessStatusCode(response.Status);
         result.OperationMessage = response.ReasonPhrase;
-      });
+      }, result);
       return result;
     }
 
@@ -54,7 +54,7 @@ namespace Fixit.Core.Storage.Storage.Queue.Mediators.Internal
         {
           result.Message = _mapper.Map<QueueMessage, QueueMessageDto>(message);
         }
-      });
+      }, result);
       return result;
     }
 
@@ -72,7 +72,7 @@ namespace Fixit.Core.Storage.Storage.Queue.Mediators.Internal
             result.Messages.Add(_mapper.Map<QueueMessage, QueueMessageDto>(message));
           }
         }
-      });
+      }, result);
       return result;
     }
 
@@ -95,7 +95,7 @@ namespace Fixit.Core.Storage.Storage.Queue.Mediators.Internal
           result.IsOperationSuccessful = QueueValidators.IsSuccessStatusCode(statusCode);
           result.OperationMessage = ((HttpStatusCode)statusCode).ToString();
         }
-      });
+      }, result);
       return result;
     }
 
@@ -118,7 +118,7 @@ namespace Fixit.Core.Storage.Storage.Queue.Mediators.Internal
           result.IsOperationSuccessful = QueueValidators.IsSuccessStatusCode(statusCode);
           result.OperationMessage = ((HttpStatusCode)statusCode).ToString();
         }
-      });
+      }, result);
       return result;
     }
 
@@ -138,7 +138,7 @@ namespace Fixit.Core.Storage.Storage.Queue.Mediators.Internal
           result.IsOperationSuccessful = QueueValidators.IsSuccessStatusCode(statusCode);
           result.OperationMessage = ((HttpStatusCode)statusCode).ToString();
         }
-      });
+      }, result);
       return result;
     }
 
@@ -163,7 +163,7 @@ namespace Fixit.Core.Storage.Storage.Queue.Mediators.Internal
           result.IsOperationSuccessful = QueueValidators.IsSuccessStatusCode(statusCode);
           result.OperationMessage = ((HttpStatusCode)statusCode).ToString();
         }
-      });
+      }, result);
       return result;
     }
   }

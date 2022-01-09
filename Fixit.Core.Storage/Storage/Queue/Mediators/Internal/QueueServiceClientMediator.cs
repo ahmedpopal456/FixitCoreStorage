@@ -49,7 +49,7 @@ namespace Fixit.Core.Storage.Storage.Queue.Mediators.Internal
         var response = await _queueServiceAdapter.DeleteQueueAsync(queueName, cancellationToken);
         result.IsOperationSuccessful = QueueValidators.IsSuccessStatusCode(response.Status);
         result.OperationMessage = response.ReasonPhrase;
-      });
+      }, result);
       return result;
     }
 
