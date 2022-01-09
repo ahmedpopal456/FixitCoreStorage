@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\FixitCoreDatabase\Fixit.Core.Database.DataContracts\Fixit.Core.Database.DataContracts.csproj" />
     <ProjectReference Include="..\Fixit.Core.Storage.DataContracts\Fixit.Core.Storage.DataContracts.csproj" />
   </ItemGroup>
 
