@@ -359,6 +359,28 @@ namespace Fixit.Core.Storage.Storage.Table.Managers.Internal
       return results;
     }
 
+    public async Task<(IList<T> results, TableContinuationToken tableQuerySegment)> GetEntitiesByFilterAsync<T>(Expression<Func<T, bool>> expression, int count, TableContinuationToken? tableContinuationToken = null) where T : TableEntity, new()
+    {
+      List<T> results = new List<T>();
+      var querySegment = default(TableQuerySegment<T>);
+
+      try
+      {
+        var query = _cloudTable.CreateQuery<T>().Where(expression).Take(count) as TableQuery<T>;
+
+        tableContinuationToken = querySegment != null ? querySegment.ContinuationToken : tableContinuationToken;
+        querySegment = await _cloudTable.ExecuteQuerySegmentedAsync(query, tableContinuationToken);
+        results.AddRange(querySegment.Results);
+      }
+      catch
+      {
+        // Fall through
+      }
+
+      return (results, querySegment?.ContinuationToken);
+    }
+
+
     #endregion
 
     #region Insert Or Rename Entity
@@ -409,20 +431,20 @@ namespace Fixit.Core.Storage.Storage.Table.Managers.Internal
 
     #region Delete Entity
 
-    public async Task<OperationStatus> DeleteEntityIfExistsAsync<T>(T tableEntity, CancellationToken cancellationToken) where T : ITableEntity
+    public async Task<OperationStatus> DeleteEntityIfExistsAsync<T>(string partitionKey, string rowKey, CancellationToken cancellationToken) where T : ITableEntity
     {
       var result = new OperationStatus()
       {
         IsOperationSuccessful = true
       };
 
-      var entity = GetEntity<T>(tableEntity.PartitionKey, tableEntity.RowKey);
+      var entity = GetEntity<T>(partitionKey, rowKey);
 
       if (entity != null)
       {
         try
         {
-          TableOperation insert = TableOperation.Delete(tableEntity);
+          TableOperation insert = TableOperation.Delete(entity);
           await _cloudTable.ExecuteAsync(insert);
 
           result.IsOperationSuccessful = true;
@@ -437,20 +459,20 @@ namespace Fixit.Core.Storage.Storage.Table.Managers.Internal
       return result;
     }
 
-    public OperationStatus DeleteEntityIfExists<T>(T tableEntity) where T : ITableEntity
+    public OperationStatus DeleteEntityIfExists<T>(string partitionKey, string rowKey) where T : ITableEntity
     {
       var result = new OperationStatus()
       {
         IsOperationSuccessful = true
       };
 
-      var entity = GetEntity<T>(tableEntity.PartitionKey, tableEntity.RowKey);
+      var entity = GetEntity<T>(partitionKey, rowKey);
 
       if (entity != null)
       {
         try
         {
-          TableOperation insert = TableOperation.Delete(tableEntity);
+          TableOperation insert = TableOperation.Delete(entity);
           _cloudTable.ExecuteAsync(insert);
 
           result.IsOperationSuccessful = true;

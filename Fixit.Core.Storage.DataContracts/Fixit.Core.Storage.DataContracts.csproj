@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fixit.Core.DataContracts" Version="1.0.110-alpha" />
+    <PackageReference Include="Fixit.Core.DataContracts" Version="1.0.0-pre-alpha339-117" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.8" />
     <PackageReference Include="System.Memory.Data" Version="1.0.1" />
     <PackageReference Include="Azure.Storage.Queues" Version="12.5.0" />
@@ -15,5 +15,4 @@
     <PackageReference Include="Microsoft.Azure.Storage.Blob" Version="11.2.2" />
     <PackageReference Include="Microsoft.Azure.Storage.Queue" Version="11.2.2" />
   </ItemGroup>
-
 </Project>

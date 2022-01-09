@@ -15,6 +15,8 @@ namespace Fixit.Core.Storage.Storage.Table.Managers
 
     Task<IEnumerable<T>> GetEntitiesByFilterAsync<T>(Expression<Func<T, bool>> expression) where T : TableEntity, new();
 
+    Task<(IList<T> results, TableContinuationToken tableQuerySegment)> GetEntitiesByFilterAsync<T>(Expression<Func<T, bool>> expression, int count, TableContinuationToken? tableContinuationToken = null) where T : TableEntity, new();
+
     Task<IEnumerable<TableFileEntity>> GetEntitiesByPathAsync(string iPartitionKey, string iPathPrefix, CancellationToken iCancellationToken);
 
     IEnumerable<TableFileEntity> GetEntitiesByPath(string iPartitionKey, string iPathPrefix);
@@ -35,8 +37,8 @@ namespace Fixit.Core.Storage.Storage.Table.Managers
 
     OperationStatus InsertOrReplaceEntity<T>(T iTableEntity) where T : ITableEntity;
 
-    Task<OperationStatus> DeleteEntityIfExistsAsync<T>(T iTableEntity, CancellationToken iCancellationToken) where T : ITableEntity;
+    Task<OperationStatus> DeleteEntityIfExistsAsync<T>(string partitionKey, string rowKey, CancellationToken iCancellationToken) where T : ITableEntity;
 
-    OperationStatus DeleteEntityIfExists<T>(T iTableEntity) where T : ITableEntity;
+    OperationStatus DeleteEntityIfExists<T>(string partitionKey, string rowKey) where T : ITableEntity;
   }
 }

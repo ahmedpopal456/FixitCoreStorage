@@ -7,6 +7,7 @@ using AutoMapper;
 using Azure.Storage.Queues.Models;
 using Fixit.Core.DataContracts;
 using Fixit.Core.DataContracts.Decorators.Exceptions;
+using Fixit.Core.DataContracts.Decorators.Exceptions.Internals;
 using Fixit.Core.Storage.DataContracts.Queue;
 using Fixit.Core.Storage.Storage.Queue.Adapters;
 using Fixit.Core.Storage.Storage.Queue.Helpers;
@@ -18,13 +19,13 @@ namespace Fixit.Core.Storage.Storage.Queue.Mediators.Internal
   {
     private IQueueClientAdapter _queueAdapter;
     private IMapper _mapper;
-    private OperationStatusExceptionDecorator _decorator;
+    private IExceptionDecorator _decorator;
 
     public QueueClientMediator(IQueueClientAdapter queueAdapter, IMapper mapper)
     {
       _queueAdapter = queueAdapter ?? throw new ArgumentNullException($"{nameof(QueueClientMediator)} expects a value for {nameof(queueAdapter)}... null argument was provided");
       _mapper = mapper ?? throw new ArgumentNullException($"{nameof(QueueClientMediator)} expects a value for {nameof(mapper)}... null argument was provided");
-      _decorator = new OperationStatusExceptionDecorator();
+      _decorator = new ExceptionDecorator();
     }
 
     public async Task<OperationStatus> DeleteMessageAsync(string messageId, string popReceipt, CancellationToken cancellationToken = default)
@@ -34,7 +35,7 @@ namespace Fixit.Core.Storage.Storage.Queue.Mediators.Internal
       QueueValidators.ValidateMessageIdAndPopReceipt(messageId, popReceipt);
       OperationStatus result = new OperationStatus();
 
-      result = await _decorator.ExecuteOperationAsync(result, async() => {
+      result = await _decorator.ExecuteOperationAsync<OperationStatus>(true, async() => {
         var response = await _queueAdapter.DeleteMessageAsync(messageId, popReceipt, cancellationToken);
         result.IsOperationSuccessful = QueueValidators.IsSuccessStatusCode(response.Status);
         result.OperationMessage = response.ReasonPhrase;
@@ -47,7 +48,7 @@ namespace Fixit.Core.Storage.Storage.Queue.Mediators.Internal
       cancellationToken.ThrowIfCancellationRequested();
       QueueMessageResponseDto result = new QueueMessageResponseDto(true);
 
-      result = (QueueMessageResponseDto) await _decorator.ExecuteOperationAsync(result, async () => {
+      result = await _decorator.ExecuteOperationAsync<QueueMessageResponseDto>(true, async () => {
         var message = await _queueAdapter.ReceiveMessageAsync(visibilityTimeout, cancellationToken);
         if (message != null)
         {
@@ -62,7 +63,7 @@ namespace Fixit.Core.Storage.Storage.Queue.Mediators.Internal
       cancellationToken.ThrowIfCancellationRequested();
       QueueMessagesResponseDto result = new QueueMessagesResponseDto(true);
 
-      result = (QueueMessagesResponseDto) await _decorator.ExecuteOperationAsync(result, async () => {
+      result = await _decorator.ExecuteOperationAsync<QueueMessagesResponseDto>(true, async () => {
         var messages = await _queueAdapter.ReceiveMessagesAsync(maxMessages, visibilityTimeout, cancellationToken);
         if (messages.Length != default(int))
         {
@@ -85,7 +86,7 @@ namespace Fixit.Core.Storage.Storage.Queue.Mediators.Internal
       }
       OperationStatus result = new OperationStatus();
 
-      result = await _decorator.ExecuteOperationAsync(result, async () => {
+      result = await _decorator.ExecuteOperationAsync<OperationStatus>(true, async () => {
         var response = await _queueAdapter.SendMessageAsync(messageText, visibilityTimeout, timeToLive, cancellationToken);
 
         if (response != null)
@@ -108,7 +109,7 @@ namespace Fixit.Core.Storage.Storage.Queue.Mediators.Internal
       }
       OperationStatus result = new OperationStatus();
 
-      result = await _decorator.ExecuteOperationAsync(result, async () => {
+      result = await _decorator.ExecuteOperationAsync<OperationStatus>(true, async () => {
         var response = await _queueAdapter.SendMessageAsync(message, visibilityTimeout, timeToLive, cancellationToken);
 
         if (response != null)
@@ -128,7 +129,7 @@ namespace Fixit.Core.Storage.Storage.Queue.Mediators.Internal
       QueueValidators.ValidateMessageIdAndPopReceipt(messageId, popReceipt);
       OperationStatus result = new OperationStatus();
 
-      result = await _decorator.ExecuteOperationAsync(result, async () => {
+      result = await _decorator.ExecuteOperationAsync<OperationStatus>(true, async () => {
         var response = await _queueAdapter.UpdateMessageAsync(messageId, popReceipt, messageText, visibilityTimeout, cancellationToken);
 
         if (response != null)
@@ -153,7 +154,7 @@ namespace Fixit.Core.Storage.Storage.Queue.Mediators.Internal
 
       OperationStatus result = new OperationStatus();
 
-      result = await _decorator.ExecuteOperationAsync(result, async () => {
+      result = await _decorator.ExecuteOperationAsync<OperationStatus>(true, async () => {
         var response = await _queueAdapter.UpdateMessageAsync(messageId, popReceipt, message, visibilityTimeout, cancellationToken);
 
         if (response != null)
