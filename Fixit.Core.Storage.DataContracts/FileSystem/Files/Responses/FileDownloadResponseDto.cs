@@ -15,5 +15,8 @@ namespace Fixit.Core.Storage.DataContracts.FileSystem.Files.Responses
 
     [DataMember]
     public string DownloadUrl { get; set; }
+
+    [DataMember]
+    public ImageUrlDto ImageUrl { get; set; }
   }
 }

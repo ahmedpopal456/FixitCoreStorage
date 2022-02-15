@@ -13,7 +13,7 @@ namespace Fixit.Core.Storage.DataContracts.FileSystem.Files
     public string EntityName { get; set; }
 
     [DataMember]
-    public long EntityId { get; set; }
+    public string EntityId { get; set; }
 
     [DataMember]
     public string ThumbnailUrl { get; set; }
