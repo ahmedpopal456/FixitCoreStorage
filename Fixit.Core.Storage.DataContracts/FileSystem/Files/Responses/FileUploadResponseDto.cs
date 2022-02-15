@@ -21,5 +21,8 @@ namespace Fixit.Core.Storage.DataContracts.FileSystem.Files.Responses
 
     [DataMember]
     public string FileCreatedTimestampUtc { get; set; }
+
+    [DataMember]
+    public ImageUrlDto ImageUrl { get; set; }
   }
 }
