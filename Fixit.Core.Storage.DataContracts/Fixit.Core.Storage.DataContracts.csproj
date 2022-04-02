@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fixit.Core.DataContracts" Version="1.0.136-alpha" />
+    <PackageReference Include="Fixit.Core.DataContracts" Version="1.0.137-alpha" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.8" />
     <PackageReference Include="System.Memory.Data" Version="1.0.1" />
     <PackageReference Include="Azure.Storage.Queues" Version="12.5.0" />
